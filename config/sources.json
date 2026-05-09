@@ -13,6 +13,7 @@
       "enabled": true
     },
     {
+ HEAD
       "name": "JSfirm OCC Search",
       "type": "html",
       "url": "https://www.jsfirm.com/operations+control+center+jobs",
@@ -46,6 +47,53 @@
       "name": "Air Wisconsin Careers",
       "type": "html",
       "url": "https://www.airwis.com/careers/",
+
+      "name": "Endeavor Air Dispatcher Search",
+      "type": "icims",
+      "url": "https://careers-endeavorair.icims.com/jobs/search?ss=1&searchKeyword=dispatcher",
+      "enabled": true
+    },
+    {
+      "name": "PSA Airlines Dispatcher Search",
+      "type": "icims",
+      "url": "https://careers-psaairlines.icims.com/jobs/search?ss=1&searchKeyword=dispatcher",
+      "enabled": true
+    },
+    {
+      "name": "Piedmont Airlines Operations Careers",
+      "type": "html",
+      "url": "https://piedmont-airlines.com/other-careers/operations/",
+      "enabled": true
+    },
+    {
+      "name": "Piedmont Dispatcher Program",
+      "type": "html",
+      "url": "https://piedmont-airlines.com/aviation-career-programs/",
+      "enabled": true
+    },
+    {
+      "name": "Republic Airways Careers",
+      "type": "html",
+      "url": "https://careers.rjet.com/",
+      "enabled": true
+    },
+    {
+      "name": "Republic Airways Dispatcher Search",
+      "type": "html",
+      "url": "https://www.ziprecruiter.com/co/Republic-Airways/Jobs/Aircraft-Dispatcher",
+      "enabled": true
+    },
+    {
+      "name": "Mountain Air Cargo Openings",
+      "type": "html",
+      "url": "https://mountainaircargo.hrmdirect.com/employment/job-openings.php?cust_sort1=170262&search=true",
+      "enabled": true
+    },
+    {
+      "name": "Mountain Air Cargo Flight Follower",
+      "type": "html",
+      "url": "https://mountainaircargo.hrmdirect.com/employment/job-opening.php?cust_sort1=170262&req=2795320&req_loc=274806",
+ fb205e9 (Fix Ameriflight source and update tracker)
       "enabled": true
     },
     {
@@ -55,6 +103,7 @@
       "enabled": true
     },
     {
+HEAD
       "name": "Envoy Air Careers",
       "type": "html",
       "url": "https://careers.envoyair.com/",
@@ -64,11 +113,17 @@
       "name": "GoJet Careers",
       "type": "html",
       "url": "https://www.gojetairlines.com/careers",
+
+      "name": "Ameriflight Careers",
+      "type": "html",
+      "url": "https://recruiting.paylocity.com/recruiting/jobs/All/685f3d6d-f4ad-4646-a826-0be488f6c6b0/Ameriflight-LLC",
+ fb205e9 (Fix Ameriflight source and update tracker)
       "enabled": true
     },
     {
-      "name": "Ameriflight Careers",
+      "name": "Atlas Air Careers",
       "type": "html",
+ HEAD
       "url": "https://careers.ameriflight.com/",
       "enabled": true
     },
@@ -100,6 +155,9 @@
       "name": "Northern Air Cargo Careers",
       "type": "html",
       "url": "https://www.northernaircargo.com/careers/",
+
+      "url": "https://careers.atlasairworldwide.com/",
+ fb205e9 (Fix Ameriflight source and update tracker)
       "enabled": true
     },
     {
@@ -115,6 +173,7 @@
       "enabled": true
     },
     {
+ HEAD
       "name": "Wheels Up Careers",
       "type": "html",
       "url": "https://careers.wheelsup.com/",
@@ -147,6 +206,10 @@
     {
       "name": "Avjobs Dispatcher Search",
       "type": "html",
+
+      "name": "Avjobs Dispatcher Search",
+      "type": "html",
+ fb205e9 (Fix Ameriflight source and update tracker)
       "url": "https://www.avjobs.com/jobs/public/dispatcher.asp",
       "enabled": true
     }
