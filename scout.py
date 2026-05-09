@@ -60,14 +60,27 @@ def init_db():
 def clean_text(text):
     return re.sub(r"\s+", " ", text or "").strip()
 
+from playwright.sync_api import sync_playwright
+
 def fetch_html(url):
     try:
-        r = requests.get(url, headers=HEADERS, timeout=20)
-        if r.status_code >= 400:
-            return ""
-        return r.text
-    except Exception:
-        return ""
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page()
+
+            page.goto(url, timeout=60000)
+
+            page.wait_for_timeout(5000)
+
+            html = page.content()
+
+            browser.close()
+
+            return html
+
+    except Exception as e:
+        print(f"Playwright error: {e}")
+        return "
 
 def infer_part_type(text):
     t = text.lower()
