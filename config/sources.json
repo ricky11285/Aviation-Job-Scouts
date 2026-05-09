@@ -13,15 +13,75 @@
       "enabled": true
     },
     {
-      "name": "Indeed Flight Dispatcher Search",
+      "name": "Endeavor Air Careers",
       "type": "html",
-      "url": "https://www.indeed.com/jobs?q=flight+dispatcher",
+      "url": "https://careers-endeavorair.icims.com/jobs/search",
       "enabled": true
     },
     {
-      "name": "Indeed Flight Follower Search",
+      "name": "PSA Airlines Careers",
       "type": "html",
-      "url": "https://www.indeed.com/jobs?q=flight+follower",
+      "url": "https://careers-psaairlines.icims.com/jobs/search",
+      "enabled": true
+    },
+    {
+      "name": "Piedmont Airlines Careers",
+      "type": "html",
+      "url": "https://piedmont-airlines-careers.hirebridge.com/jobs",
+      "enabled": true
+    },
+    {
+      "name": "Republic Airways Careers",
+      "type": "html",
+      "url": "https://republicairways.com/careers/",
+      "enabled": true
+    },
+    {
+      "name": "SkyWest Careers",
+      "type": "html",
+      "url": "https://www.skywest.com/skywest-airline-jobs/career-guides/dispatcher-jobs",
+      "enabled": true
+    },
+    {
+      "name": "Mountain Air Cargo Careers",
+      "type": "html",
+      "url": "https://www.mtnaircargo.com/careers/",
+      "enabled": true
+    },
+    {
+      "name": "Ameriflight Careers",
+      "type": "html",
+      "url": "https://w3global.com/jobs/ameriflight",
+      "enabled": true
+    },
+    {
+      "name": "NetJets Careers",
+      "type": "html",
+      "url": "https://www.netjets.com/en-us/careers",
+      "enabled": true
+    },
+    {
+      "name": "Flexjet Careers",
+      "type": "html",
+      "url": "https://www.flexjet.com/careers/",
+      "enabled": true
+    },
+    {
+      "name": "Kalitta Air Careers",
+      "type": "html",
+      "url": "https://www.kalittaair.com/careers/",
+      "enabled": true
+    },
+    {
+      "name": "Atlas Air Careers",
+      "type": "html",
+      "url": "https://www.atlasairworldwide.com/careers/",
+      "enabled": true
+    },
+    {
+      "name": "ATI Careers",
+      "type": "html",
+      "url": "https://www.airtransport.cc/careers",
       "enabled": true
     }
   ]
