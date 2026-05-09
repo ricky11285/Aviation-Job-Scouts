@@ -1,0 +1,28 @@
+{
+  "sources": [
+    {
+      "name": "JSfirm Aircraft Dispatcher Search",
+      "type": "html",
+      "url": "https://www.jsfirm.com/aircraft+dispatcher+jobs",
+      "enabled": true
+    },
+    {
+      "name": "JSfirm Flight Follower Search",
+      "type": "html",
+      "url": "https://www.jsfirm.com/flight+follower+jobs",
+      "enabled": true
+    },
+    {
+      "name": "Indeed Flight Dispatcher Search",
+      "type": "html",
+      "url": "https://www.indeed.com/jobs?q=flight+dispatcher",
+      "enabled": true
+    },
+    {
+      "name": "Indeed Flight Follower Search",
+      "type": "html",
+      "url": "https://www.indeed.com/jobs?q=flight+follower",
+      "enabled": true
+    }
+  ]
+}

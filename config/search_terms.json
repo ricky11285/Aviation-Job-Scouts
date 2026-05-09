@@ -1,0 +1,59 @@
+{
+  "primary_terms": [
+    "aircraft dispatcher",
+    "flight dispatcher",
+    "flight follower",
+    "flight operations coordinator",
+    "OCC coordinator",
+    "IOC coordinator",
+    "flight planner",
+    "crew scheduler",
+    "operations control specialist"
+  ],
+  "positive_keywords": [
+    "FAA dispatcher certificate",
+    "Part 121",
+    "Part 135",
+    "Part 91",
+    "flight following",
+    "operational control",
+    "dispatch release",
+    "weather",
+    "NOTAM",
+    "crew legality",
+    "cargo",
+    "charter",
+    "regional airline",
+    "OCC",
+    "IOC",
+    "entry level",
+    "0-3 years",
+    "one year",
+    "preferred",
+    "willing to train"
+  ],
+  "negative_keywords": [
+    "5 years required",
+    "10 years required",
+    "senior dispatcher",
+    "director",
+    "manager required",
+    "military only",
+    "A&P required",
+    "pilot in command required"
+  ],
+  "location_preferences": [
+    "Atlanta",
+    "remote",
+    "hybrid",
+    "Minneapolis",
+    "Charlotte",
+    "Dallas",
+    "Chicago",
+    "Cincinnati",
+    "Miami",
+    "Memphis",
+    "Louisville",
+    "Greensboro"
+  ]
+}
