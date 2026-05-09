@@ -31,9 +31,7 @@ def load_json(path):
 
 
 def init_db():
-
     conn = sqlite3.connect(DB_PATH)
-
     cur = conn.cursor()
 
     cur.execute("""
@@ -50,12 +48,18 @@ def init_db():
         experience_flag TEXT,
         resume_fit INTEGER,
         career_fit INTEGER,
-        priority TEXT
+        priority TEXT,
+        run_id TEXT
     )
     """)
 
-    conn.commit()
+    cur.execute("PRAGMA table_info(jobs)")
+    columns = [row[1] for row in cur.fetchall()]
 
+    if "run_id" not in columns:
+        cur.execute("ALTER TABLE jobs ADD COLUMN run_id TEXT")
+
+    conn.commit()
     return conn
 
 
@@ -64,36 +68,23 @@ def clean_text(text):
 
 
 def fetch_html(url):
-
     try:
-
         with sync_playwright() as p:
-
             browser = p.chromium.launch(headless=True)
-
             page = browser.new_page()
-
             page.goto(url, timeout=60000)
-
             page.wait_for_timeout(5000)
-
             html = page.content()
-
             browser.close()
-
             return html
 
     except Exception as e:
-
         print(f"Playwright error: {e}")
-
         return ""
 
 
 def infer_part_type(text):
-
     t = text.lower()
-
     parts = []
 
     if "part 121" in t:
@@ -118,7 +109,6 @@ def infer_part_type(text):
 
 
 def infer_experience(text):
-
     t = text.lower()
 
     friendly = [
@@ -151,9 +141,7 @@ def infer_experience(text):
 
 
 def score_job(title, description, terms, resume):
-
     text = f"{title} {description}".lower()
-
     score = 45
 
     for kw in terms["positive_keywords"]:
@@ -183,18 +171,14 @@ def score_job(title, description, terms, resume):
         score += 8
 
     resume_fit = max(0, min(100, score))
-
     career_fit = max(0, min(100, score + 3))
 
     if resume_fit >= 88:
         priority = "Very High"
-
     elif resume_fit >= 78:
         priority = "High"
-
     elif resume_fit >= 68:
         priority = "Medium"
-
     else:
         priority = "Low"
 
@@ -202,15 +186,11 @@ def score_job(title, description, terms, resume):
 
 
 def parse_generic_jobs(source_name, html, source_url):
-
     soup = BeautifulSoup(html, "html.parser")
-
     results = []
 
     for a in soup.find_all("a", href=True):
-
         text = clean_text(a.get_text(" "))
-
         href = a["href"]
 
         if not text:
@@ -232,9 +212,7 @@ def parse_generic_jobs(source_name, html, source_url):
             continue
 
         if href.startswith("/"):
-
             parsed = urlparse(source_url)
-
             href = f"{parsed.scheme}://{parsed.netloc}{href}"
 
         results.append({
@@ -250,13 +228,10 @@ def parse_generic_jobs(source_name, html, source_url):
 
 
 def parse_icims_jobs(source_name, html, source_url):
-
     soup = BeautifulSoup(html, "html.parser")
-
     results = []
 
     for a in soup.find_all("a", href=True):
-
         text = clean_text(a.get_text(" "))
 
         if not text:
@@ -278,9 +253,7 @@ def parse_icims_jobs(source_name, html, source_url):
         href = a["href"]
 
         if href.startswith("/"):
-
             parsed = urlparse(source_url)
-
             href = f"{parsed.scheme}://{parsed.netloc}{href}"
 
         results.append({
@@ -295,12 +268,10 @@ def parse_icims_jobs(source_name, html, source_url):
     return results
 
 
-def insert_job(conn, job):
-
+def insert_job(conn, job, run_id):
     cur = conn.cursor()
 
     try:
-
         cur.execute("""
         INSERT INTO jobs (
             found_date,
@@ -314,9 +285,10 @@ def insert_job(conn, job):
             experience_flag,
             resume_fit,
             career_fit,
-            priority
+            priority,
+            run_id
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             now_iso(),
             job["source"],
@@ -329,36 +301,61 @@ def insert_job(conn, job):
             job["experience_flag"],
             job["resume_fit"],
             job["career_fit"],
-            job["priority"]
+            job["priority"],
+            run_id
         ))
 
         conn.commit()
-
         return True
 
     except sqlite3.IntegrityError:
-
         return False
 
 
-def export_excel(conn):
-
+def export_excel(conn, run_id):
     df = pd.read_sql_query(
         "SELECT * FROM jobs ORDER BY found_date DESC, resume_fit DESC",
         conn
     )
 
+    recent = pd.read_sql_query(
+        "SELECT * FROM jobs WHERE run_id = ? ORDER BY resume_fit DESC",
+        conn,
+        params=(run_id,)
+    )
+
     out = OUTPUT / "dispatcher_jobs_tracker.xlsx"
 
     with pd.ExcelWriter(out, engine="openpyxl") as writer:
+        dashboard = pd.DataFrame({
+            "Metric": [
+                "Last run UTC",
+                "Total jobs tracked",
+                "New jobs this run",
+                "Very High priority total",
+                "High priority total",
+                "Medium priority total",
+                "Low priority total"
+            ],
+            "Value": [
+                run_id,
+                len(df),
+                len(recent),
+                int((df["priority"] == "Very High").sum()) if not df.empty else 0,
+                int((df["priority"] == "High").sum()) if not df.empty else 0,
+                int((df["priority"] == "Medium").sum()) if not df.empty else 0,
+                int((df["priority"] == "Low").sum()) if not df.empty else 0
+            ]
+        })
 
-        df.to_excel(writer, index=False, sheet_name="Job Tracker")
+        dashboard.to_excel(writer, index=False, sheet_name="Dashboard")
+        recent.to_excel(writer, index=False, sheet_name="Recently Added")
+        df.to_excel(writer, index=False, sheet_name="All Jobs")
 
     return out
 
 
 def write_top_matches(conn):
-
     df = pd.read_sql_query(
         "SELECT * FROM jobs ORDER BY resume_fit DESC LIMIT 10",
         conn
@@ -369,7 +366,6 @@ def write_top_matches(conn):
     lines = []
 
     for _, r in df.iterrows():
-
         lines.append(
             f"{r['resume_fit']}% | "
             f"{r['priority']} | "
@@ -379,16 +375,42 @@ def write_top_matches(conn):
         )
 
     out.write_text("\n".join(lines), encoding="utf-8")
+    return out
 
+
+def write_recent_matches(conn, run_id):
+    df = pd.read_sql_query(
+        "SELECT * FROM jobs WHERE run_id = ? ORDER BY resume_fit DESC",
+        conn,
+        params=(run_id,)
+    )
+
+    out = OUTPUT / "recently_added.txt"
+
+    if df.empty:
+        out.write_text("No new jobs added in this run.", encoding="utf-8")
+        return out
+
+    lines = []
+
+    for _, r in df.iterrows():
+        lines.append(
+            f"{r['resume_fit']}% | "
+            f"{r['priority']} | "
+            f"{r['title']} | "
+            f"{r['source']} | "
+            f"{r['url']}"
+        )
+
+    out.write_text("\n".join(lines), encoding="utf-8")
     return out
 
 
 def main():
+    run_id = now_iso()
 
     sources = load_json(SOURCES_PATH)["sources"]
-
     terms = load_json(TERMS_PATH)
-
     resume = load_json(RESUME_PATH)
 
     conn = init_db()
@@ -396,7 +418,6 @@ def main():
     found = []
 
     for src in sources:
-
         if not src.get("enabled", True):
             continue
 
@@ -406,7 +427,6 @@ def main():
             continue
 
         if src.get("type") == "icims":
-
             found.extend(
                 parse_icims_jobs(
                     src["name"],
@@ -414,9 +434,7 @@ def main():
                     src["url"]
                 )
             )
-
         else:
-
             found.extend(
                 parse_generic_jobs(
                     src["name"],
@@ -428,14 +446,12 @@ def main():
     new_count = 0
 
     for job in found:
-
         combined = (
             f"{job.get('title', '')} "
             f"{job.get('description', '')}"
         )
 
         job["part_type"] = infer_part_type(combined)
-
         job["experience_flag"] = infer_experience(combined)
 
         (
@@ -449,18 +465,17 @@ def main():
             resume
         )
 
-        if insert_job(conn, job):
+        if insert_job(conn, job, run_id):
             new_count += 1
 
-    excel = export_excel(conn)
-
+    excel = export_excel(conn, run_id)
     top = write_top_matches(conn)
+    recent = write_recent_matches(conn, run_id)
 
     print(f"Run complete. New jobs added: {new_count}")
-
     print(f"Excel tracker: {excel}")
-
     print(f"Top matches: {top}")
+    print(f"Recently added: {recent}")
 
 
 if __name__ == "__main__":
