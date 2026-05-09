@@ -10,17 +10,15 @@ from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
 BASE = Path(__file__).resolve().parent
+
 OUTPUT = BASE / "output"
 OUTPUT.mkdir(exist_ok=True)
 
 DB_PATH = BASE / "jobs.db"
+
 SOURCES_PATH = BASE / "config" / "sources.json"
 TERMS_PATH = BASE / "config" / "search_terms.json"
 RESUME_PATH = BASE / "resume_profile.json"
-
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 DispatcherJobScout/2.0"
-}
 
 
 def now_iso():
@@ -33,6 +31,7 @@ def load_json(path):
 
 
 def init_db():
+
     conn = sqlite3.connect(DB_PATH)
 
     cur = conn.cursor()
@@ -65,7 +64,9 @@ def clean_text(text):
 
 
 def fetch_html(url):
+
     try:
+
         with sync_playwright() as p:
 
             browser = p.chromium.launch(headless=True)
@@ -83,11 +84,14 @@ def fetch_html(url):
             return html
 
     except Exception as e:
+
         print(f"Playwright error: {e}")
+
         return ""
 
 
 def infer_part_type(text):
+
     t = text.lower()
 
     parts = []
@@ -114,6 +118,7 @@ def infer_part_type(text):
 
 
 def infer_experience(text):
+
     t = text.lower()
 
     friendly = [
@@ -159,19 +164,17 @@ def score_job(title, description, terms, resume):
         if kw.lower() in text:
             score -= 8
 
-    for cert in resume["certifications"]:
-        if "dispatcher" in cert.lower():
-            if "dispatcher" in text or "flight follower" in text:
-                score += 10
+    if "dispatcher" in text:
+        score += 10
+
+    if "flight follower" in text:
+        score += 10
 
     if "occ" in text or "ioc" in text:
         score += 8
 
-    if "operational control" in text:
-        score += 8
-
-    if "flight follower" in text:
-        score += 8
+    if "part 121" in text:
+        score += 7
 
     if "part 135" in text:
         score += 8
@@ -179,21 +182,9 @@ def score_job(title, description, terms, resume):
     if "cargo" in text:
         score += 8
 
-    if "charter" in text:
-        score += 8
-
-    if "part 121" in text:
-        score += 7
-
     resume_fit = max(0, min(100, score))
 
-    career_fit = max(
-        0,
-        min(
-            100,
-            score + 3 if "manager" not in text else score - 5
-        )
-    )
+    career_fit = max(0, min(100, score + 3))
 
     if resume_fit >= 88:
         priority = "Very High"
@@ -241,6 +232,53 @@ def parse_generic_jobs(source_name, html, source_url):
             continue
 
         if href.startswith("/"):
+
+            parsed = urlparse(source_url)
+
+            href = f"{parsed.scheme}://{parsed.netloc}{href}"
+
+        results.append({
+            "source": source_name,
+            "title": text[:150],
+            "company": "",
+            "location": "",
+            "url": href,
+            "description": text
+        })
+
+    return results
+
+
+def parse_icims_jobs(source_name, html, source_url):
+
+    soup = BeautifulSoup(html, "html.parser")
+
+    results = []
+
+    for a in soup.find_all("a", href=True):
+
+        text = clean_text(a.get_text(" "))
+
+        if not text:
+            continue
+
+        lower = text.lower()
+
+        if not any(term in lower for term in [
+            "dispatcher",
+            "flight follower",
+            "flight operations",
+            "flight planner",
+            "occ",
+            "ioc",
+            "operations control"
+        ]):
+            continue
+
+        href = a["href"]
+
+        if href.startswith("/"):
+
             parsed = urlparse(source_url)
 
             href = f"{parsed.scheme}://{parsed.netloc}{href}"
@@ -314,36 +352,7 @@ def export_excel(conn):
 
     with pd.ExcelWriter(out, engine="openpyxl") as writer:
 
-        df.to_excel(
-            writer,
-            index=False,
-            sheet_name="Job Tracker"
-        )
-
-        dash = pd.DataFrame({
-            "Metric": [
-                "Total jobs",
-                "Very High priority",
-                "High priority",
-                "Last run UTC"
-            ],
-            "Value": [
-                len(df),
-                int((df["priority"] == "Very High").sum())
-                if not df.empty else 0,
-
-                int((df["priority"] == "High").sum())
-                if not df.empty else 0,
-
-                now_iso()
-            ]
-        })
-
-        dash.to_excel(
-            writer,
-            index=False,
-            sheet_name="Dashboard"
-        )
+        df.to_excel(writer, index=False, sheet_name="Job Tracker")
 
     return out
 
@@ -369,10 +378,7 @@ def write_top_matches(conn):
             f"{r['url']}"
         )
 
-    out.write_text(
-        "\n".join(lines),
-        encoding="utf-8"
-    )
+    out.write_text("\n".join(lines), encoding="utf-8")
 
     return out
 
@@ -399,13 +405,25 @@ def main():
         if not html:
             continue
 
-        found.extend(
-            parse_generic_jobs(
-                src["name"],
-                html,
-                src["url"]
+        if src.get("type") == "icims":
+
+            found.extend(
+                parse_icims_jobs(
+                    src["name"],
+                    html,
+                    src["url"]
+                )
             )
-        )
+
+        else:
+
+            found.extend(
+                parse_generic_jobs(
+                    src["name"],
+                    html,
+                    src["url"]
+                )
+            )
 
     new_count = 0
 
