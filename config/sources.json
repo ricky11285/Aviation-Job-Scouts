@@ -13,45 +13,93 @@
       "enabled": true
     },
     {
-      "name": "Endeavor Air Careers",
+      "name": "JSfirm OCC Search",
       "type": "html",
-      "url": "https://careers-endeavorair.icims.com/jobs/search",
+      "url": "https://www.jsfirm.com/operations+control+center+jobs",
       "enabled": true
     },
     {
-      "name": "PSA Airlines Careers",
-      "type": "html",
-      "url": "https://careers-psaairlines.icims.com/jobs/search",
+      "name": "Endeavor Air iCIMS Dispatcher Search",
+      "type": "icims",
+      "url": "https://careers-endeavorair.icims.com/jobs/search?ss=1&searchKeyword=dispatcher",
       "enabled": true
     },
     {
-      "name": "Piedmont Airlines Careers",
-      "type": "html",
-      "url": "https://piedmont-airlines-careers.hirebridge.com/jobs",
+      "name": "Endeavor Air Flight Operations Search",
+      "type": "icims",
+      "url": "https://careers-endeavorair.icims.com/jobs/search?ss=1&searchKeyword=flight",
       "enabled": true
     },
     {
-      "name": "Republic Airways Careers",
-      "type": "html",
-      "url": "https://republicairways.com/careers/",
+      "name": "PSA Airlines Dispatcher Search",
+      "type": "icims",
+      "url": "https://careers-psaairlines.icims.com/jobs/search?ss=1&searchKeyword=dispatcher",
       "enabled": true
     },
     {
-      "name": "SkyWest Careers",
+      "name": "PSA Airlines Flight Operations Search",
+      "type": "icims",
+      "url": "https://careers-psaairlines.icims.com/jobs/search?ss=1&searchKeyword=flight",
+      "enabled": true
+    },
+    {
+      "name": "Air Wisconsin Careers",
+      "type": "html",
+      "url": "https://www.airwis.com/careers/",
+      "enabled": true
+    },
+    {
+      "name": "SkyWest Dispatcher Jobs",
       "type": "html",
       "url": "https://www.skywest.com/skywest-airline-jobs/career-guides/dispatcher-jobs",
       "enabled": true
     },
     {
-      "name": "Mountain Air Cargo Careers",
+      "name": "Envoy Air Careers",
       "type": "html",
-      "url": "https://www.mtnaircargo.com/careers/",
+      "url": "https://careers.envoyair.com/",
+      "enabled": true
+    },
+    {
+      "name": "GoJet Careers",
+      "type": "html",
+      "url": "https://www.gojetairlines.com/careers",
       "enabled": true
     },
     {
       "name": "Ameriflight Careers",
       "type": "html",
-      "url": "https://w3global.com/jobs/ameriflight",
+      "url": "https://careers.ameriflight.com/",
+      "enabled": true
+    },
+    {
+      "name": "ATI Careers",
+      "type": "html",
+      "url": "https://www.airtransport.cc/careers",
+      "enabled": true
+    },
+    {
+      "name": "ABX Air Careers",
+      "type": "html",
+      "url": "https://www.abxair.com/careers/",
+      "enabled": true
+    },
+    {
+      "name": "Atlas Air Careers",
+      "type": "html",
+      "url": "https://careers.atlasairworldwide.com/",
+      "enabled": true
+    },
+    {
+      "name": "Kalitta Air Careers",
+      "type": "html",
+      "url": "https://www.kalittaair.com/careers/",
+      "enabled": true
+    },
+    {
+      "name": "Northern Air Cargo Careers",
+      "type": "html",
+      "url": "https://www.northernaircargo.com/careers/",
       "enabled": true
     },
     {
@@ -67,21 +115,39 @@
       "enabled": true
     },
     {
-      "name": "Kalitta Air Careers",
+      "name": "Wheels Up Careers",
       "type": "html",
-      "url": "https://www.kalittaair.com/careers/",
+      "url": "https://careers.wheelsup.com/",
       "enabled": true
     },
     {
-      "name": "Atlas Air Careers",
+      "name": "Jet Linx Careers",
       "type": "html",
-      "url": "https://www.atlasairworldwide.com/careers/",
+      "url": "https://www.jetlinx.com/careers/",
       "enabled": true
     },
     {
-      "name": "ATI Careers",
+      "name": "PlaneSense Careers",
       "type": "html",
-      "url": "https://www.airtransport.cc/careers",
+      "url": "https://www.planesense.com/careers/",
+      "enabled": true
+    },
+    {
+      "name": "XOJET Careers",
+      "type": "html",
+      "url": "https://www.xojet.com/careers/",
+      "enabled": true
+    },
+    {
+      "name": "ClimbTo350 Dispatcher Search",
+      "type": "html",
+      "url": "https://www.climbto350.com/aviationjobs/cat/19",
+      "enabled": true
+    },
+    {
+      "name": "Avjobs Dispatcher Search",
+      "type": "html",
+      "url": "https://www.avjobs.com/jobs/public/dispatcher.asp",
       "enabled": true
     }
   ]
