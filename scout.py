@@ -1,3 +1,4 @@
+```python
 import json
 import re
 import sqlite3
@@ -65,6 +66,42 @@ def init_db():
 
 def clean_text(text):
     return re.sub(r"\s+", " ", text or "").strip()
+
+
+def is_recent(text):
+
+    t = text.lower()
+
+    recent_terms = [
+        "today",
+        "just posted",
+        "1 day",
+        "2 days",
+        "3 days",
+        "4 days",
+        "5 days",
+        "6 days",
+        "7 days",
+        "hours ago",
+        "yesterday"
+    ]
+
+    old_terms = [
+        "2 weeks",
+        "3 weeks",
+        "30+ days",
+        "1 month",
+        "2 months",
+        "3 months"
+    ]
+
+    if any(x in t for x in old_terms):
+        return False
+
+    if any(x in t for x in recent_terms):
+        return True
+
+    return False
 
 
 def fetch_html(url):
@@ -186,10 +223,12 @@ def score_job(title, description, terms, resume):
 
 
 def parse_generic_jobs(source_name, html, source_url):
+
     soup = BeautifulSoup(html, "html.parser")
     results = []
 
     for a in soup.find_all("a", href=True):
+
         text = clean_text(a.get_text(" "))
         href = a["href"]
 
@@ -201,35 +240,37 @@ def parse_generic_jobs(source_name, html, source_url):
 
         lower = text.lower()
 
-      valid_terms = [
-    "dispatcher",
-    "aircraft dispatcher",
-    "flight follower",
-    "flight dispatch",
-    "flight dispatcher",
-    "operational control",
-    "operations control center",
-    "occ",
-    "ioc"
-]
+        if not is_recent(lower):
+            continue
 
-reject_terms = [
-    "crew scheduler",
-    "flight coordinator",
-    "charter sales",
-    "concierge",
-    "customer service",
-    "maintenance controller",
-    "recruiter",
-    "sales",
-    "intern"
-]
+        valid_terms = [
+            "dispatcher",
+            "aircraft dispatcher",
+            "flight follower",
+            "flight dispatch",
+            "flight dispatcher",
+            "operational control",
+            "operations control center",
+            "occ",
+            "ioc"
+        ]
 
-if not any(term in lower for term in valid_terms):
-    continue
+        reject_terms = [
+            "crew scheduler",
+            "flight coordinator",
+            "charter sales",
+            "concierge",
+            "customer service",
+            "maintenance controller",
+            "recruiter",
+            "sales",
+            "intern"
+        ]
 
-if any(term in lower for term in reject_terms):
-    continue:
+        if not any(term in lower for term in valid_terms):
+            continue
+
+        if any(term in lower for term in reject_terms):
             continue
 
         if href.startswith("/"):
@@ -249,10 +290,12 @@ if any(term in lower for term in reject_terms):
 
 
 def parse_icims_jobs(source_name, html, source_url):
+
     soup = BeautifulSoup(html, "html.parser")
     results = []
 
     for a in soup.find_all("a", href=True):
+
         text = clean_text(a.get_text(" "))
 
         if not text:
@@ -260,15 +303,37 @@ def parse_icims_jobs(source_name, html, source_url):
 
         lower = text.lower()
 
-        if not any(term in lower for term in [
+        if not is_recent(lower):
+            continue
+
+        valid_terms = [
             "dispatcher",
+            "aircraft dispatcher",
             "flight follower",
-            "flight operations",
-            "flight planner",
+            "flight dispatch",
+            "flight dispatcher",
+            "operational control",
+            "operations control center",
             "occ",
-            "ioc",
-            "operations control"
-        ]):
+            "ioc"
+        ]
+
+        reject_terms = [
+            "crew scheduler",
+            "flight coordinator",
+            "charter sales",
+            "concierge",
+            "customer service",
+            "maintenance controller",
+            "recruiter",
+            "sales",
+            "intern"
+        ]
+
+        if not any(term in lower for term in valid_terms):
+            continue
+
+        if any(term in lower for term in reject_terms):
             continue
 
         href = a["href"]
@@ -290,9 +355,11 @@ def parse_icims_jobs(source_name, html, source_url):
 
 
 def insert_job(conn, job, run_id):
+
     cur = conn.cursor()
 
     try:
+
         cur.execute("""
         INSERT INTO jobs (
             found_date,
@@ -334,6 +401,7 @@ def insert_job(conn, job, run_id):
 
 
 def export_excel(conn, run_id):
+
     df = pd.read_sql_query(
         "SELECT * FROM jobs ORDER BY found_date DESC, resume_fit DESC",
         conn
@@ -348,6 +416,7 @@ def export_excel(conn, run_id):
     out = OUTPUT / "dispatcher_jobs_tracker.xlsx"
 
     with pd.ExcelWriter(out, engine="openpyxl") as writer:
+
         dashboard = pd.DataFrame({
             "Metric": [
                 "Last run UTC",
@@ -377,6 +446,7 @@ def export_excel(conn, run_id):
 
 
 def write_top_matches(conn):
+
     df = pd.read_sql_query(
         "SELECT * FROM jobs ORDER BY resume_fit DESC LIMIT 10",
         conn
@@ -387,6 +457,7 @@ def write_top_matches(conn):
     lines = []
 
     for _, r in df.iterrows():
+
         lines.append(
             f"{r['resume_fit']}% | "
             f"{r['priority']} | "
@@ -400,6 +471,7 @@ def write_top_matches(conn):
 
 
 def write_recent_matches(conn, run_id):
+
     df = pd.read_sql_query(
         "SELECT * FROM jobs WHERE run_id = ? ORDER BY resume_fit DESC",
         conn,
@@ -415,6 +487,7 @@ def write_recent_matches(conn, run_id):
     lines = []
 
     for _, r in df.iterrows():
+
         lines.append(
             f"{r['resume_fit']}% | "
             f"{r['priority']} | "
@@ -428,6 +501,7 @@ def write_recent_matches(conn, run_id):
 
 
 def main():
+
     run_id = now_iso()
 
     sources = load_json(SOURCES_PATH)["sources"]
@@ -439,6 +513,7 @@ def main():
     found = []
 
     for src in sources:
+
         if not src.get("enabled", True):
             continue
 
@@ -448,6 +523,7 @@ def main():
             continue
 
         if src.get("type") == "icims":
+
             found.extend(
                 parse_icims_jobs(
                     src["name"],
@@ -455,7 +531,9 @@ def main():
                     src["url"]
                 )
             )
+
         else:
+
             found.extend(
                 parse_generic_jobs(
                     src["name"],
@@ -467,12 +545,14 @@ def main():
     new_count = 0
 
     for job in found:
+
         combined = (
             f"{job.get('title', '')} "
             f"{job.get('description', '')}"
         )
 
         job["part_type"] = infer_part_type(combined)
+
         job["experience_flag"] = infer_experience(combined)
 
         (
@@ -501,3 +581,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
