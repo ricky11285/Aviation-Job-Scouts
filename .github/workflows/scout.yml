@@ -12,7 +12,8 @@ runs-on: ubuntu-latest
 
 ```
 steps:
-  - name: Checkout
+
+  - name: Checkout repository
     uses: actions/checkout@v4
 
   - name: Setup Python
@@ -25,12 +26,37 @@ steps:
       pip install pandas beautifulsoup4 openpyxl playwright
       python -m playwright install chromium
 
-  - name: Run scout
+  - name: Run dispatcher scout
     run: python scout.py
 
-  - name: Upload job tracker
+  - name: Upload results artifact
     uses: actions/upload-artifact@v4
     with:
       name: dispatcher-job-results
       path: output/
+
+  - name: Send email with results
+    uses: dawidd6/action-send-mail@v3
+    with:
+      server_address: smtp.gmail.com
+      server_port: 465
+      secure: true
+      username: ${{ secrets.EMAIL_FROM }}
+      password: ${{ secrets.EMAIL_PASSWORD }}
+      subject: Aviation Dispatcher Scout Results
+      to: ${{ secrets.EMAIL_TO }}
+      from: Dispatcher Scout
+
+      body: |
+        Your aviation dispatcher scout completed successfully.
+
+        Attached files:
+        - dispatcher_jobs_tracker.xlsx
+        - top_matches.txt
+        - recently_added.txt
+
+      attachments: |
+        output/dispatcher_jobs_tracker.xlsx
+        output/top_matches.txt
+        output/recently_added.txt
 ```
