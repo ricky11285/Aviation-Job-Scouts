@@ -201,14 +201,35 @@ def parse_generic_jobs(source_name, html, source_url):
 
         lower = text.lower()
 
-        if not any(term in lower for term in [
-            "dispatcher",
-            "flight follower",
-            "flight operations",
-            "flight planner",
-            "occ",
-            "ioc"
-        ]):
+      valid_terms = [
+    "dispatcher",
+    "aircraft dispatcher",
+    "flight follower",
+    "flight dispatch",
+    "flight dispatcher",
+    "operational control",
+    "operations control center",
+    "occ",
+    "ioc"
+]
+
+reject_terms = [
+    "crew scheduler",
+    "flight coordinator",
+    "charter sales",
+    "concierge",
+    "customer service",
+    "maintenance controller",
+    "recruiter",
+    "sales",
+    "intern"
+]
+
+if not any(term in lower for term in valid_terms):
+    continue
+
+if any(term in lower for term in reject_terms):
+    continue:
             continue
 
         if href.startswith("/"):
