@@ -1,4 +1,3 @@
-```python
 import json
 import re
 import sqlite3
@@ -107,7 +106,7 @@ def is_recent(text):
 def fetch_html(url):
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
+            browser = p.chromium.launch(    less=True)
             page = browser.new_page()
             page.goto(url, timeout=60000)
             page.wait_for_timeout(5000)
@@ -581,7 +580,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-<<<<<<< HEAD
-```
-=======
->>>>>>> 103137f (Add strict dispatcher filtering and freshness filter)
