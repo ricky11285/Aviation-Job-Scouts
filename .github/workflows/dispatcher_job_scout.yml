@@ -1,14 +1,11 @@
-
 name: Dispatcher Job Scout
 
 on:
- workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
- scout:
- runs-on: ubuntu-latest
-
-
- steps:
-  - name: Test
-    run: echo "Workflow works"
+  scout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: echo Workflow works
