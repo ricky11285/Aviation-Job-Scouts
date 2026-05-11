@@ -31,6 +31,7 @@ def load_json(path):
 
 
 def init_db():
+
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
@@ -49,19 +50,37 @@ def init_db():
         resume_fit INTEGER,
         career_fit INTEGER,
         priority TEXT,
-        run_id TEXT
+        run_id TEXT,
+
+        application_status TEXT DEFAULT 'Not Applied',
+        application_date TEXT DEFAULT '',
+        follow_up_date TEXT DEFAULT '',
+        last_contact TEXT DEFAULT '',
+        notes TEXT DEFAULT ''
     )
     """)
 
     cur.execute("PRAGMA table_info(jobs)")
     columns = [row[1] for row in cur.fetchall()]
 
-    if "run_id" not in columns:
-        cur.execute("ALTER TABLE jobs ADD COLUMN run_id TEXT")
+    new_columns = {
+        "run_id": "TEXT",
+        "application_status": "TEXT DEFAULT 'Not Applied'",
+        "application_date": "TEXT DEFAULT ''",
+        "follow_up_date": "TEXT DEFAULT ''",
+        "last_contact": "TEXT DEFAULT ''",
+        "notes": "TEXT DEFAULT ''"
+    }
+
+    for col, definition in new_columns.items():
+
+        if col not in columns:
+            cur.execute(
+                f"ALTER TABLE jobs ADD COLUMN {col} {definition}"
+            )
 
     conn.commit()
     return conn
-
 
 def clean_text(text):
     return re.sub(r"\s+", " ", text or "").strip()
