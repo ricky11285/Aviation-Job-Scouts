@@ -30,11 +30,6 @@ steps:
       playwright install --with-deps chromium
 
   - name: Run scout
-    env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
-      EMAIL_TO: ${{ secrets.EMAIL_TO }}
-      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
     run: |
       python scout.py
 
@@ -66,12 +61,4 @@ steps:
         output/dispatcher_jobs_tracker.xlsx
         output/top_matches.txt
         output/recently_added.txt
-
-  - name: Commit updated tracker and database
-    run: |
-      git config user.name "dispatcher-job-scout"
-      git config user.email "actions@github.com"
-      git add jobs.db output/dispatcher_jobs_tracker.xlsx output/top_matches.txt output/recently_added.txt || true
-      git commit -m "Update dispatcher job scout results" || echo "No changes to commit"
-      git push
 ```
