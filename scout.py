@@ -3,7 +3,7 @@ import re
 import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import quote_plus, urlparse
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -372,6 +372,67 @@ def parse_icims_jobs(source_name, html, source_url):
     return results
 
 
+def build_job_board_search_links():
+
+    search_terms = [
+        "aircraft dispatcher",
+        "flight dispatcher",
+        "flight follower",
+        "operations control",
+        "operations control center",
+        "OCC dispatcher",
+        "IOC dispatcher",
+        "crew scheduler",
+        "load control",
+        "airline operations",
+        "Part 121 dispatcher",
+        "Part 135 dispatcher"
+    ]
+
+    boards = [
+        {
+            "source": "Indeed",
+            "url_template": "https://www.indeed.com/jobs?q={query}&l=United+States"
+        },
+        {
+            "source": "Glassdoor",
+            "url_template": "https://www.glassdoor.com/Job/jobs.htm?sc.keyword={query}"
+        },
+        {
+            "source": "Monster",
+            "url_template": "https://www.monster.com/jobs/search/?q={query_dash}&where=United-States"
+        }
+    ]
+
+    results = []
+
+    for term in search_terms:
+
+        query = quote_plus(term)
+        query_dash = term.replace(" ", "-")
+
+        for board in boards:
+
+            url = board["url_template"].format(
+                query=query,
+                query_dash=query_dash
+            )
+
+            results.append({
+                "source": board["source"],
+                "title": f"{term.title()} Search",
+                "company": "",
+                "location": "United States",
+                "url": url,
+                "description": (
+                    f"Manual job-board search link for {term}. "
+                    "Open this link to review current postings."
+                )
+            })
+
+    return results
+
+
 def insert_job(conn, job, run_id):
 
     cur = conn.cursor()
@@ -559,6 +620,8 @@ def main():
                     src["url"]
                 )
             )
+
+    found.extend(build_job_board_search_links())
 
     new_count = 0
 
