@@ -1,0 +1,4 @@
+jobs.db
+output/dispatcher_jobs_tracker.xlsx
+output/recently_added.txt
+output/top_matches.txt
