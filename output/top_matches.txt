@@ -1,10 +1,10 @@
-65% | Low | Flight Follower/Dispatcher | Mountain Air Cargo Openings | job-opening.php?req=2795320&req_loc=274806&&cust_sort1=170262&#job
-63% | Low | Flight Follower/Dispatcher | JSfirm Aircraft Dispatcher Search | https://www.jsfirm.com/Dispatcher/Flight+Follower/Dispatcher/Denver-North+Carolina/jobID_1283517
-63% | Low | flight follower | JSfirm Aircraft Dispatcher Search | https://www.jsfirm.com/allpositions/alltypes/allstates/allcountries/flight follower/searchpopularjobs
-55% | Low | AOG Maintenance Controller (Dispatcher) - Night Shift | JSfirm Aircraft Dispatcher Search | https://www.jsfirm.com/Administration/AOG+Maintenance+Controller+(Dispatcher)+-+Night+Shift/Kinston-North+Carolina/jobID_1690983
-55% | Low | Aircraft Dispatcher | JSfirm Aircraft Dispatcher Search | https://www.jsfirm.com/Dispatcher/Aircraft+Dispatcher/Charlotte-North+Carolina/jobID_1869294
-55% | Low | Dispatcher | JSfirm Aircraft Dispatcher Search | https://www.jsfirm.com/Dispatcher/Dispatcher/Denver-Colorado/jobID_1934127
-55% | Low | Aircraft Dispatcher Apprenticeship | JSfirm Aircraft Dispatcher Search | https://www.jsfirm.com/Dispatcher/Aircraft+Dispatcher+Apprenticeship/Indianapolis-Indiana/jobID_1920604
-55% | Low | Shuttle Bus Dispatcher - Part Time | JSfirm Aircraft Dispatcher Search | https://www.jsfirm.com/Other/Shuttle+Bus+Dispatcher+-+Part+Time/Indianapolis-Indiana/jobID_1940552
-55% | Low | Motor Vehicle Dispatcher (Must have Secret Clearance) | JSfirm Aircraft Dispatcher Search | https://www.jsfirm.com/Other/Motor+Vehicle+Dispatcher+(Must+have+Secret+Clearance)/Arlington-Virginia/jobID_1756119
-55% | Low | Motor Vehicle Dispatcher | JSfirm Aircraft Dispatcher Search | https://www.jsfirm.com/Dispatcher/Motor+Vehicle+Dispatcher/Falls+Church-Virginia/jobID_1898982
+67% | Low | Occ Dispatcher Search | Indeed | https://www.indeed.com/jobs?q=OCC+dispatcher&l=United+States
+67% | Low | Occ Dispatcher Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=OCC+dispatcher
+67% | Low | Occ Dispatcher Search | Monster | https://www.monster.com/jobs/search/?q=OCC-dispatcher&where=United-States
+67% | Low | Ioc Dispatcher Search | Indeed | https://www.indeed.com/jobs?q=IOC+dispatcher&l=United+States
+67% | Low | Ioc Dispatcher Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=IOC+dispatcher
+67% | Low | Ioc Dispatcher Search | Monster | https://www.monster.com/jobs/search/?q=IOC-dispatcher&where=United-States
+67% | Low | Part 135 Dispatcher Search | Indeed | https://www.indeed.com/jobs?q=Part+135+dispatcher&l=United+States
+67% | Low | Part 135 Dispatcher Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=Part+135+dispatcher
+67% | Low | Part 135 Dispatcher Search | Monster | https://www.monster.com/jobs/search/?q=Part-135-dispatcher&where=United-States
+66% | Low | Part 121 Dispatcher Search | Indeed | https://www.indeed.com/jobs?q=Part+121+dispatcher&l=United+States

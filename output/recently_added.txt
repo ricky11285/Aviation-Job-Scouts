@@ -1,1 +1,36 @@
-No new jobs added in this run.
+67% | Low | Occ Dispatcher Search | Indeed | https://www.indeed.com/jobs?q=OCC+dispatcher&l=United+States
+67% | Low | Occ Dispatcher Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=OCC+dispatcher
+67% | Low | Occ Dispatcher Search | Monster | https://www.monster.com/jobs/search/?q=OCC-dispatcher&where=United-States
+67% | Low | Ioc Dispatcher Search | Indeed | https://www.indeed.com/jobs?q=IOC+dispatcher&l=United+States
+67% | Low | Ioc Dispatcher Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=IOC+dispatcher
+67% | Low | Ioc Dispatcher Search | Monster | https://www.monster.com/jobs/search/?q=IOC-dispatcher&where=United-States
+67% | Low | Part 135 Dispatcher Search | Indeed | https://www.indeed.com/jobs?q=Part+135+dispatcher&l=United+States
+67% | Low | Part 135 Dispatcher Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=Part+135+dispatcher
+67% | Low | Part 135 Dispatcher Search | Monster | https://www.monster.com/jobs/search/?q=Part-135-dispatcher&where=United-States
+66% | Low | Part 121 Dispatcher Search | Indeed | https://www.indeed.com/jobs?q=Part+121+dispatcher&l=United+States
+66% | Low | Part 121 Dispatcher Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=Part+121+dispatcher
+66% | Low | Part 121 Dispatcher Search | Monster | https://www.monster.com/jobs/search/?q=Part-121-dispatcher&where=United-States
+55% | Low | Aircraft Dispatcher Search | Indeed | https://www.indeed.com/jobs?q=aircraft+dispatcher&l=United+States
+55% | Low | Aircraft Dispatcher Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=aircraft+dispatcher
+55% | Low | Aircraft Dispatcher Search | Monster | https://www.monster.com/jobs/search/?q=aircraft-dispatcher&where=United-States
+55% | Low | Flight Dispatcher Search | Indeed | https://www.indeed.com/jobs?q=flight+dispatcher&l=United+States
+55% | Low | Flight Dispatcher Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=flight+dispatcher
+55% | Low | Flight Dispatcher Search | Monster | https://www.monster.com/jobs/search/?q=flight-dispatcher&where=United-States
+55% | Low | Flight Follower Search | Indeed | https://www.indeed.com/jobs?q=flight+follower&l=United+States
+55% | Low | Flight Follower Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=flight+follower
+55% | Low | Flight Follower Search | Monster | https://www.monster.com/jobs/search/?q=flight-follower&where=United-States
+45% | Low | Operations Control Search | Indeed | https://www.indeed.com/jobs?q=operations+control&l=United+States
+45% | Low | Operations Control Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=operations+control
+45% | Low | Operations Control Search | Monster | https://www.monster.com/jobs/search/?q=operations-control&where=United-States
+45% | Low | Operations Control Center Search | Indeed | https://www.indeed.com/jobs?q=operations+control+center&l=United+States
+45% | Low | Operations Control Center Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=operations+control+center
+45% | Low | Operations Control Center Search | Monster | https://www.monster.com/jobs/search/?q=operations-control-center&where=United-States
+45% | Low | Crew Scheduler Search | Indeed | https://www.indeed.com/jobs?q=crew+scheduler&l=United+States
+45% | Low | Crew Scheduler Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=crew+scheduler
+45% | Low | Crew Scheduler Search | Monster | https://www.monster.com/jobs/search/?q=crew-scheduler&where=United-States
+45% | Low | Load Control Search | Indeed | https://www.indeed.com/jobs?q=load+control&l=United+States
+45% | Low | Load Control Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=load+control
+45% | Low | Load Control Search | Monster | https://www.monster.com/jobs/search/?q=load-control&where=United-States
+45% | Low | Airline Operations Search | Indeed | https://www.indeed.com/jobs?q=airline+operations&l=United+States
+45% | Low | Airline Operations Search | Glassdoor | https://www.glassdoor.com/Job/jobs.htm?sc.keyword=airline+operations
+45% | Low | Airline Operations Search | Monster | https://www.monster.com/jobs/search/?q=airline-operations&where=United-States
